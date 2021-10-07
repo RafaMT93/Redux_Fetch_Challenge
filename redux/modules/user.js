@@ -1,0 +1,44 @@
+const USER_FETCH_STARTED = 'user/FETCH_STARTED';
+const USER_FETCH_SUCCESS = 'user/FETCH_SUCCESS';
+const USER_FETCH_ERROR = 'user/FETCH_ERROR';
+
+export const userFetchStarted = () => ({ type: USER_FETCH_STARTED });
+export const userFtchSuccess = (payload) => ({
+  type: USER_FETCH_SUCCESS,
+  payload,
+});
+export const userFetchError = (payload) => ({
+  type: USER_FETCH_ERROR,
+  payload,
+});
+
+const initialState = {
+  loading: false,
+  data: null,
+  error: null,
+};
+
+export const userFetch = (token) => async (dispatch) => {
+  try {
+    dispatch(userFetchStarted());
+
+    dispatch(userFtchSuccess(data));
+  } catch (err) {
+    dispatch(userFetchError(err.message));
+  }
+};
+
+function user(state = initialState, action) {
+  switch (action.type) {
+    case USER_FETCH_STARTED:
+      return { ...state, loading: true };
+    case USER_FETCH_SUCCESS:
+      return { data: action.payload, loading: false, error: null };
+    case USER_FETCH_ERROR:
+      return { data: null, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+
+export default user;
