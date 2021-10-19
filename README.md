@@ -20,7 +20,7 @@ body: JSON.stringify(user),
 },
 );
 const { token } = await response.json();
-
+<br>
 // Com a api do curso de React, puxe o usuário:
 const response = await fetch('https://dogsapi.origamid.dev/json/api/user', {
 method: 'GET',
